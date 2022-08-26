@@ -1,6 +1,6 @@
 # APIRestFul
 
-## SQl Server Docker
+## SQL Server Docker
 https://hub.docker.com/_/microsoft-mssql-server
 <pre>docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=MeuSQLDB@123" -p 11433:1433 --name sql1 --hostname sqlhome -d   mcr.microsoft.com/mssql/server:2022-latest</pre>
 
