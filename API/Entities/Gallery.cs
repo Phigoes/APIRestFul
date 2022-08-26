@@ -1,6 +1,5 @@
 ﻿using API.Entities.Enums;
 using API.Infra;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace API.Entities
 {
@@ -21,22 +20,11 @@ namespace API.Entities
             ValidateEntity();
         }
 
-        [BsonElement("title")]
         public string Title { get; private set; }
-
-        [BsonElement("legend")]
         public string Legend { get; private set; }
-
-        [BsonElement("author")]
         public string Author { get; private set; }
-
-        [BsonElement("tags")]
         public string Tags { get; private set; }
-
-        [BsonElement("thumb")]
         public string Thumb { get; private set; }
-
-        [BsonElement("galleryImages")]
         public IList<string> GalleryImages { get; set; }
 
         public void ValidateEntity()

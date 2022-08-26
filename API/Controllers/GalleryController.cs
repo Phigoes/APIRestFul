@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet("{page}/{quantity}")]
         public ActionResult<Result<GalleryViewModel>> Get(int page, int quantity) => _galleryService.Get(page, quantity);
 
-        [HttpGet("{id:length(24)}", Name = "GetGalleries")]
+        [HttpGet("{id}", Name = "GetGalleries")]
         public ActionResult<GalleryViewModel> Get(string id)
         {
             var gallery = _galleryService.Get(id);
@@ -41,7 +41,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetGalleries", new { id = result.Id.ToString() }, result);
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut("{id}")]
         public ActionResult<GalleryViewModel> Update(string id, GalleryViewModel galleryIn)
         {
             var gallery = _galleryService.Get(id);
@@ -53,7 +53,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetGalleries", new { id = id }, galleryIn);
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id}")]
         public ActionResult<GalleryViewModel> Delete(string id)
         {
             var gallery = _galleryService.Get(id);

@@ -24,7 +24,7 @@ namespace API.Controllers
         public ActionResult<Result<VideoViewModel>> Get(int page, int quantity) => 
             _videoService.Get(page, quantity);
 
-        [HttpGet("{id:length(24)}", Name = "GetVideos")]
+        [HttpGet("{id}", Name = "GetVideos")]
         public ActionResult<VideoViewModel> Get(string id)
         {
             var video = _videoService.Get(id);
@@ -42,7 +42,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetVideos", new { id = result.Id.ToString() }, result);
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut("{id}")]
         public ActionResult<VideoViewModel> Update(string id, VideoViewModel videoIn)
         {
             var video = _videoService.Get(id);
@@ -54,7 +54,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetVideos", new { id = id }, videoIn);
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id}")]
         public ActionResult<VideoViewModel> Delete(string id)
         {
             var video = _videoService.Get(id);

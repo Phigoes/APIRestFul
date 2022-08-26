@@ -2,7 +2,7 @@
 
 namespace API.Infra.Interfaces
 {
-    public interface IMongoRepository<T>
+    public interface IRepository<T>
     {
         Result<T> Get(int page, int quantity);
         T Get(string id);

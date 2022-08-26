@@ -9,11 +9,11 @@ namespace API.Services
     public class VideoService
     {
         private readonly IMapper _mapper;
-        private readonly IMongoRepository<Video> _video;
+        private readonly IRepository<Video> _video;
         private readonly ICacheService _cacheService;
         private readonly string keyForCache = "video";
 
-        public VideoService(IMapper mapper, IMongoRepository<Video> video, ICacheService cacheService)
+        public VideoService(IMapper mapper, IRepository<Video> video, ICacheService cacheService)
         {
             _mapper = mapper;
             _video = video;
@@ -34,7 +34,6 @@ namespace API.Services
             return video;
         }
 
-
         public VideoViewModel Get(string id)
         {
             var cacheKey = $"{keyForCache}/{id}";
@@ -48,7 +47,6 @@ namespace API.Services
 
             return video;
         }
-            
 
         public VideoViewModel GetBySlug(string slug)
         {

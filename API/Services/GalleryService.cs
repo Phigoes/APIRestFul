@@ -9,11 +9,11 @@ namespace API.Services
     public class GalleryService
     {
         private readonly IMapper _mapper;
-        private readonly IMongoRepository<Gallery> _gallery;
+        private readonly IRepository<Gallery> _gallery;
         private readonly ICacheService _cacheService;
         private readonly string keyForCache = "gallery";
 
-        public GalleryService(IMongoRepository<Gallery> gallery, IMapper mapper, ICacheService cacheService)
+        public GalleryService(IRepository<Gallery> gallery, IMapper mapper, ICacheService cacheService)
         {
             _gallery = gallery;
             _mapper = mapper;

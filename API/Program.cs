@@ -1,4 +1,5 @@
 using API.Infra;
+using API.Infra.Data;
 using API.Infra.Interfaces;
 using API.Mappers;
 using API.Services;
@@ -6,9 +7,9 @@ using API.Services.Interfaces;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 //using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -41,8 +42,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 #region [Database]
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
-builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+builder.Services.AddDbContext<DataContext>(
+    options => options.UseSqlServer(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value));
+builder.Services.AddTransient<DataContext>();
 #endregion
 
 #region [Redis]
@@ -54,8 +56,8 @@ builder.Services.AddDistributedRedisCache(options =>
 
 #region [HealthCheck]
 builder.Services.AddHealthChecks()
-    .AddMongoDb(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value + "/" + builder.Configuration.GetSection("DatabaseSettings:db_portal").Value,
-        name: "mongodb", tags: new string[] { "db", "data" })
+    .AddSqlServer(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value,
+        name: "sqlserver", tags: new string[] { "db", "data" })
     .AddRedis(builder.Configuration.GetSection("Redis:ConnectionString").Value, tags: new string[] { "db", "data" });
 
 builder.Services.AddHealthChecksUI(options =>
@@ -69,11 +71,11 @@ builder.Services.AddHealthChecksUI(options =>
 #endregion
 
 #region [DI]
-builder.Services.AddSingleton(typeof(IMongoRepository<>), typeof(MongoRepository<>));
-builder.Services.AddSingleton<NewsService>();
-builder.Services.AddSingleton<VideoService>();
-builder.Services.AddSingleton<UploadService>();
-builder.Services.AddSingleton<GalleryService>();
+builder.Services.AddTransient(typeof(IRepository<>), typeof(SQLRepository<>));
+builder.Services.AddTransient<NewsService>();
+builder.Services.AddTransient<VideoService>();
+builder.Services.AddTransient<UploadService>();
+builder.Services.AddTransient<GalleryService>();
 
 //builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
 //builder.Services.AddSingleton<ICacheService, CacheMemoryService>();

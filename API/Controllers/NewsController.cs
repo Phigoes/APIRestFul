@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet("{page}/{quantity}")]
         public ActionResult<Result<NewsViewModel>> Get(int page, int quantity) => _newsService.Get(page, quantity);
 
-        [HttpGet("{id:length(24)}", Name = "GetNews")]
+        [HttpGet("{id}", Name = "GetNews")]
         public ActionResult<NewsViewModel> Get(string id)
         {
             var news = _newsService.Get(id);
@@ -41,7 +41,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetNews", new { id = result.Id.ToString() }, result);
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut("{id}")]
         public ActionResult<NewsViewModel> Update(string id, NewsViewModel newsIn)
         {
             var news = _newsService.Get(id);
@@ -53,7 +53,7 @@ namespace API.Controllers
             return CreatedAtRoute("GetNews", new { id = id }, newsIn);
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete("{id}")]
         public ActionResult<NewsViewModel> Delete(string id)
         {
             var news = _newsService.Get(id);

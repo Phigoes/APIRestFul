@@ -9,11 +9,11 @@ namespace API.Services
     public class NewsService
     {
         private readonly IMapper _mapper;
-        private readonly IMongoRepository<News> _news;
+        private readonly IRepository<News> _news;
         private readonly ICacheService _cacheService;
         private readonly string keyForCache = "news";
 
-        public NewsService(IMapper mapper, IMongoRepository<News> news, ICacheService cacheService)
+        public NewsService(IMapper mapper, IRepository<News> news, ICacheService cacheService)
         {
             _mapper = mapper;
             _news = news;
