@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Infra
 {
-    public class SQLRepository<T> : IRepository<T> where T : BaseEntity
+    public class OracleRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly DataContext _dataContext;
         private DbSet<T> DbSet => _dataContext.Set<T>();
 
-        public SQLRepository(DataContext dataContext)
+        public OracleRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
@@ -22,7 +22,7 @@ namespace API.Infra
             {
                 Page = page,
                 Quantity = quantity,
-                Data = DbSet.Where(x => !x.Deleted)
+                Data = DbSet.Where(x => x.Deleted == 0)
                     .Skip((page - 1) * quantity)
                     .Take(quantity)
                     .AsNoTracking()
@@ -34,7 +34,7 @@ namespace API.Infra
             return result;
         }
 
-        public T Get(string id) => DbSet.Where(x => !x.Deleted && x.Id == id).AsNoTracking().FirstOrDefault();
+        public T Get(string id) => DbSet.Where(x => x.Deleted == 0 && x.Id == id).AsNoTracking().FirstOrDefault();
 
         public T Create(T entity)
         {
@@ -56,13 +56,13 @@ namespace API.Infra
         public void Remove(string id)
         {
             var entity = Get(id);
-            entity.Deleted = true;
+            entity.Deleted = 1;
 
             _dataContext.Update(entity);
             _dataContext.Entry(entity).State = EntityState.Modified;
             _dataContext.SaveChanges();
         }
 
-        public T GetBySlug(string slug) => DbSet.Where(x => !x.Deleted && x.Slug == slug).AsNoTracking().FirstOrDefault();
+        public T GetBySlug(string slug) => DbSet.Where(x => x.Deleted == 0 && x.Slug == slug).AsNoTracking().FirstOrDefault();
     }
 }

@@ -45,11 +45,10 @@ namespace API.Infra.Mapping
 
             builder.Property(c => c.Status);
 
-            builder.Property(c => c.PublishDate)
-                .HasColumnType("varchar(255)");
+            builder.Property(c => c.PublishDate);
 
             builder.Property(c => c.Deleted)
-                .HasColumnType("bit");
+                .HasColumnType("int");
 
             builder.ToTable("Gallery");
         }

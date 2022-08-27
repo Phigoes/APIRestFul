@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -12,17 +13,17 @@ namespace API.Migrations
                 name: "Gallery",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Title = table.Column<string>(type: "varchar(250)", nullable: false),
                     Legend = table.Column<string>(type: "varchar(80)", nullable: false),
                     Author = table.Column<string>(type: "varchar(80)", nullable: false),
                     Tags = table.Column<string>(type: "varchar(80)", nullable: false),
                     Thumb = table.Column<string>(type: "varchar(255)", nullable: false),
                     GalleryImages = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<int>(type: "int", nullable: false),
                     Slug = table.Column<string>(type: "varchar(255)", nullable: false),
-                    PublishDate = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    PublishDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,16 +34,16 @@ namespace API.Migrations
                 name: "News",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Hat = table.Column<string>(type: "varchar(80)", nullable: false),
                     Title = table.Column<string>(type: "varchar(250)", nullable: false),
                     Text = table.Column<string>(type: "varchar(255)", nullable: false),
                     Author = table.Column<string>(type: "varchar(80)", nullable: false),
                     Img = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<int>(type: "int", nullable: false),
                     Slug = table.Column<string>(type: "varchar(255)", nullable: false),
-                    PublishDate = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    PublishDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,16 +54,16 @@ namespace API.Migrations
                 name: "Video",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Hat = table.Column<string>(type: "varchar(80)", nullable: false),
                     Title = table.Column<string>(type: "varchar(250)", nullable: false),
                     Author = table.Column<string>(type: "varchar(80)", nullable: false),
                     Thumbnail = table.Column<string>(type: "varchar(255)", nullable: false),
                     UrlVideo = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<int>(type: "int", nullable: false),
                     Slug = table.Column<string>(type: "varchar(255)", nullable: false),
-                    PublishDate = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    PublishDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    Status = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {

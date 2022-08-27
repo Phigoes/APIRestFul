@@ -18,7 +18,7 @@ namespace API.Controllers
             _videoService = videoService;
         }
 
-        [HttpGet]
+        [HttpGet("{page}/{quantity}")]
         public ActionResult<Result<VideoViewModel>> Get(int page, int quantity) =>
             _videoService.Get(page, quantity);
 

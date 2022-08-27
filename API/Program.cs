@@ -43,7 +43,7 @@ builder.Services.AddSwaggerGen(c =>
 
 #region [Database]
 builder.Services.AddDbContext<DataContext>(
-    options => options.UseSqlServer(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value));
+    options => options.UseOracle(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value));
 builder.Services.AddTransient<DataContext>();
 #endregion
 
@@ -56,7 +56,7 @@ builder.Services.AddDistributedRedisCache(options =>
 
 #region [HealthCheck]
 builder.Services.AddHealthChecks()
-    .AddSqlServer(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value,
+    .AddOracle(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value,
         name: "sqlserver", tags: new string[] { "db", "data" })
     .AddRedis(builder.Configuration.GetSection("Redis:ConnectionString").Value, tags: new string[] { "db", "data" });
 
@@ -71,7 +71,7 @@ builder.Services.AddHealthChecksUI(options =>
 #endregion
 
 #region [DI]
-builder.Services.AddTransient(typeof(IRepository<>), typeof(SQLRepository<>));
+builder.Services.AddTransient(typeof(IRepository<>), typeof(OracleRepository<>));
 builder.Services.AddTransient<NewsService>();
 builder.Services.AddTransient<VideoService>();
 builder.Services.AddTransient<UploadService>();
